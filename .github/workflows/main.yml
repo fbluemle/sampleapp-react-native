@@ -1,7 +1,5 @@
 name: CI
-
 on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,5 +18,3 @@ jobs:
         run: yarn lint
       - name: Run tests
         run: yarn test
-        env:
-          CI: true
