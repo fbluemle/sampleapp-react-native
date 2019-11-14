@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/android:api-28-node
+    environment:
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+      TERM: "dumb"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - v1-yarn-cache-{{ .Branch }}-
+            - v1-yarn-cache-
+      - run:
+          name: Installing Dependencies
+          command: yarn --frozen-lockfile --non-interactive
+      - run: yarn lint
+      - run: yarn test
+      - restore_cache:
+          keys:
+            - v1-gradle-caches-{{ checksum "android/build.gradle" }}
+      - restore_cache:
+          keys:
+            - v1-gradle-wrapper-{{ checksum "android/gradle/wrapper/gradle-wrapper.properties" }}
+      - run:
+          working_directory: android/
+          command: ./gradlew build
+      - store_artifacts:
+          path: android/app/build/reports/
+      - save_cache:
+          key: v1-yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: v1-gradle-caches-{{ checksum "android/build.gradle" }}
+          paths:
+            - ~/.gradle/caches/
+      - save_cache:
+          key: v1-gradle-wrapper-{{ checksum "android/gradle/wrapper/gradle-wrapper.properties" }}
+          paths:
+            - ~/.gradle/wrapper/
