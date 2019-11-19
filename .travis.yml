@@ -34,4 +34,4 @@ jobs:
       before_script:
         - cd ios/
         - pod install
-      script: xcodebuild -workspace "rnsampleapp.xcworkspace" -scheme "rnsampleapp" -destination "platform=iOS Simulator,name=iPhone X,OS=11.4" build | xcpretty
+      script: xcodebuild -workspace "rnsampleapp.xcworkspace" -scheme "rnsampleapp" -destination "platform=iOS Simulator,name=iPhone X,OS=11.4" build | xcpretty && exit ${PIPESTATUS[0]}
