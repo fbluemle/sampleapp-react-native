@@ -21,7 +21,7 @@ jobs:
           - android-sdk-license-.+
       environment:
         GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-        TERM: dumb
+        TERM: "dumb"
       before_script:
         - echo no | android create avd -f -n test -t android-22 -b armeabi-v7a
         - emulator -avd test -no-audio -no-window &
