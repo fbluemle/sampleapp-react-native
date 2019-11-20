@@ -30,7 +30,7 @@ jobs:
         - cd android/
       script: ./gradlew connectedCheck
     - language: objective-c
-      osx_image: xcode10.3
+      osx_image: xcode11.2
       before_script:
         - gem install cocoapods -v '1.8.4'
         - cd ios/
