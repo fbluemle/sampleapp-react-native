@@ -35,4 +35,4 @@ jobs:
         - gem install cocoapods -v '1.8.4'
         - cd ios/
         - pod install
-      script: xcodebuild -workspace "rnsampleapp.xcworkspace" -scheme "rnsampleapp" -destination "platform=iOS Simulator,name=iPhone X,OS=11.4" build | xcpretty && exit ${PIPESTATUS[0]}
+      script: xcodebuild -workspace rnsampleapp.xcworkspace -scheme rnsampleapp -destination "platform=iOS Simulator,name=iPhone X,OS=11.4" | xcpretty && exit ${PIPESTATUS[0]}
